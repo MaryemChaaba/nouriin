@@ -1,0 +1,75 @@
+# Application Port (e.g., 8000)
+PORT=
+# Admin frontend URL (e.g., http://localhost:5173)
+ADMIN_URL=
+# Client frontend URL (e.g., http://localhost:3000)
+CLIENT_URL=
+# API Server URLs
+PRODUCTION_SERVER_URL=
+SERVER_URL=
+
+# MongoDB Connection String
+# Get this from MongoDB Atlas (https://www.mongodb.com/cloud/atlas) or your local MongoDB setup
+MONGO_URI=
+
+# JWT Authentication
+# Generate a secure random string for JWT_SECRET (e.g., using `require("crypto").randomBytes(64).toString("hex")`)
+JWT_SECRET=
+JWT_EXPIRE=
+JWT_REFRESH_EXPIRE=
+
+# Stripe Configuration
+# Get these from your Stripe Dashboard (Developers -> API keys & Webhooks)
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+
+# Business logic configuration
+TAX_RATE=
+FREE_DELIVERY_THRESHOLD=
+NODE_ENV=
+PLATFORM_COMMISSION_PERCENTAGE=
+
+# Cloudinary Configuration
+# Get these by creating an account on Cloudinary (https://cloudinary.com/)
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
+# ImageKit Configuration (Alternative to Cloudinary)
+# Get these by creating an account on ImageKit (https://imagekit.io/)
+IMAGEKIT_PUBLIC_KEY=
+IMAGEKIT_PRIVATE_KEY=
+IMAGEKIT_URL_ENDPOINT=
+
+# AWS S3 Configuration (Alternative for file upload)
+# Get these by creating an IAM user with S3 access in AWS Console (https://aws.amazon.com/s3)
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_REGION=
+AWS_S3_BUCKET_NAME=
+
+# Upload Configuration
+# Options: 'cloudinary' or 'imagekit'
+DEFAULT_UPLOAD_PROVIDER=
+MAX_PRODUCT_IMAGES=
+# Default placeholder image URL for users
+DEFAULT_USER_IMAGE=
+
+# SSLCommerz Payment Gateway (Bangladesh)
+# Get these merchants details from SSLCommerz (https://sslcommerz.com/)
+SSLCOMMERZ_STORE_ID=
+SSLCOMMERZ_STORE_PASSWORD=
+SSLCOMMERZ_IS_LIVE=
+
+# Email Service Configuration (SMTP)
+# Use App Passwords for Gmail (https://myaccount.google.com/apppasswords), or Get these from SendGrid, Mailgun, etc.
+SMTP_HOST=
+SMTP_PORT=
+SMTP_USER=
+SMTP_PASS=
+SENDER_EMAIL_ADDRESS=
+
+# Admin user credentials
+# Note: You can store admin seeding details here if required for scripts
+# ADMIN_EMAIL=
+# ADMIN_PASSWORD=

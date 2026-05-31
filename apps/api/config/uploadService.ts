@@ -121,7 +121,7 @@ class UploadService {
         file = imageData as string;
       }
 
-      const result = await imagekit.files.upload({
+      const result = await imagekit.listFiles.upload({
         file: file,
         fileName: fileName,
         folder: options.folder || "babyshop",
@@ -344,7 +344,7 @@ class UploadService {
         );
 
         // Search for file
-        const files = await imagekit.assets.list({
+        const files = await imagekit.listFiles({
           searchQuery: `name = "${fileName}"`,
         });
 
@@ -356,7 +356,7 @@ class UploadService {
         }
       }
 
-      await imagekit.files.delete(fileId);
+      await imagekit.deleteFile(fileId);
       return { success: true, provider: "imagekit" };
     } catch (error) {
       const err = error as Error;

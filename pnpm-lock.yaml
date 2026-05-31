@@ -410,6 +410,9 @@ importers:
       '@types/node':
         specifier: ^25.3.5
         version: 25.7.0
+      '@types/node-fetch':
+        specifier: ^2.6.13
+        version: 2.6.13
       '@types/nodemailer':
         specifier: ^7.0.11
         version: 7.0.11
@@ -3417,6 +3420,9 @@ packages:
 
   '@types/multer@2.1.0':
     resolution: {integrity: sha512-zYZb0+nJhOHtPpGDb3vqPjwpdeGlGC157VpkqNQL+UU2qwoacoQ7MpsAmUptI/0Oa127X32JzWDqQVEXp2RcIA==}
+
+  '@types/node-fetch@2.6.13':
+    resolution: {integrity: sha512-QGpRVpzSaUs30JBSGPjOg4Uveu384erbHBoT1zeONvyCfwQxIkUshLAOqN/k9EjGviPRmWTTe6aH2qySWKTVSw==}
 
   '@types/node@20.19.41':
     resolution: {integrity: sha512-ECymXOukMnOoVkC2bb1Vc/w/836DXncOg5m8Xj1RH7xSHZJWNYY6Zh7EH477vcnD5egKNNfy2RpNOmuChhFPgQ==}
@@ -7587,7 +7593,7 @@ snapshots:
   '@grpc/grpc-js@1.9.15':
     dependencies:
       '@grpc/proto-loader': 0.7.15
-      '@types/node': 25.7.0
+      '@types/node': 25.9.1
 
   '@grpc/proto-loader@0.7.15':
     dependencies:
@@ -9362,7 +9368,7 @@ snapshots:
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 25.7.0
+      '@types/node': 25.9.1
 
   '@types/cors@2.8.19':
     dependencies:
@@ -9440,6 +9446,11 @@ snapshots:
     dependencies:
       '@types/express': 5.0.6
 
+  '@types/node-fetch@2.6.13':
+    dependencies:
+      '@types/node': 25.9.1
+      form-data: 4.0.5
+
   '@types/node@20.19.41':
     dependencies:
       undici-types: 6.21.0
@@ -9494,7 +9505,7 @@ snapshots:
 
   '@types/send@1.2.1':
     dependencies:
-      '@types/node': 25.7.0
+      '@types/node': 25.9.1
 
   '@types/serve-static@2.2.0':
     dependencies:
@@ -11786,7 +11797,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.1
-      '@types/node': 25.7.0
+      '@types/node': 25.9.1
       long: 5.3.2
 
   proxy-addr@2.0.7:

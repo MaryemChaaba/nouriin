@@ -121,7 +121,7 @@ class UploadService {
         file = imageData as string;
       }
 
-      const result = await imagekit.listFiles.upload({
+      const result = await imagekit.upload({
         file: file,
         fileName: fileName,
         folder: options.folder || "babyshop",

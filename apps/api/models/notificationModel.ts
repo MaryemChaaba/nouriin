@@ -1,5 +1,20 @@
 import mongoose from "mongoose";
+export const NotificationTypes = [
+  "order_confirmed",
+  "offer",
+  "order_placed",
+  "order_shipped",
+  "order_delivered",
+  "order_cancelled",
+  "payment_success",
+  "payment_failed",
+  "account_update",
+  "admin_message",
+  "general",
+  "deal",
+] as const;
 
+export type NotificationType = (typeof NotificationTypes)[number];
 const notificationSchema = new mongoose.Schema(
   {
     userId: {
@@ -10,23 +25,9 @@ const notificationSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: [
-        "order_placed",
-        "order_confirmed",
-        "order_shipped",
-        "order_delivered",
-        "order_cancelled",
-        "payment_success",
-        "payment_failed",
-        "account_update",
-        "general",
-        "offer",
-        "deal",
-        "announcement",
-        "promotion",
-        "alert",
-        "admin_message",
-      ],
+      
+      enum :NotificationTypes,
+      
       required: true,
     },
     title: {

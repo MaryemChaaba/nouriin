@@ -9,7 +9,7 @@ interface CollectionQuery extends PaginationQuery {
   status?: string;
   threshold?: number;
 }
-
+type CollectionStatus = "collected" | "submitted" | "confirmed";
 interface SubmissionBody {
   collectionIds: string[];
   accountsUserId: string;
@@ -39,7 +39,7 @@ const getMyCollections: RequestHandler = asyncHandler(async (req: RequestWithQue
 
     if (!existing) {
       // Determine status based on order status
-      let collectionStatus = "collected";
+      let collectionStatus :CollectionStatus = "collected";
       if (order.status === "completed") {
         collectionStatus = "confirmed";
       } else if (order.status === "delivered") {
@@ -439,7 +439,7 @@ const backfillCashCollections: RequestHandler = asyncHandler(async (req, res) =>
     }
 
     // Determine status based on order status
-    let collectionStatus = "collected";
+    let collectionStatus:CollectionStatus = "collected";
     if (order.status === "completed") {
       collectionStatus = "confirmed";
     } else if (order.status === "delivered") {

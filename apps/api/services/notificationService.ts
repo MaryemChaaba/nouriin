@@ -1,11 +1,26 @@
 import Notification from "../models/notificationModel.js";
 import User from "../models/userModel.js";
-import type { Types, UpdateWriteOpResult } from "mongoose";
+import type { HydratedDocument, Types, UpdateWriteOpResult } from "mongoose";
+import { NotificationDocument } from "../types/notification.js";
 
+
+type NotificationType =
+  | "order_confirmed"
+  | "offer"
+  | "order_placed"
+  | "order_shipped"
+  | "order_delivered"
+  | "order_cancelled"
+  | "payment_success"
+  | "payment_failed"
+  | "account_update"
+  | "admin_message"
+  | "general";
 // Interfaces
+
 interface NotificationParams {
   userId: Types.ObjectId | string;
-  type: string;
+  type: NotificationType;
   title: string;
   message: string;
   relatedOrderId?: Types.ObjectId | string | null;
@@ -21,7 +36,7 @@ interface NotificationParams {
 }
 
 interface BulkNotificationParams {
-  type: string;
+  type: NotificationType;
   title: string;
   message: string;
   image?: string | null;
@@ -50,16 +65,17 @@ interface OrderInfo {
   status: string;
 }
 
-interface NotificationDocument {
-  _id: Types.ObjectId;
-  userId: Types.ObjectId;
-  type: string;
-  title: string;
-  message: string;
-  isRead: boolean;
-  createdAt: Date;
-  // Add other fields as needed
-}
+// interface NotificationDocument {
+//   _id: Types.ObjectId;
+//   userId: Types.ObjectId;
+//   type: NotificationType;
+//   title: string;
+//   message: string;
+//   isRead: boolean;
+//   createdAt: Date;
+//   // Add other fields as needed
+// }
+// export type NotificationDocument2 = HydratedDocument<NotificationDocument>;
 
 interface BulkSendResult {
   success: boolean;
@@ -70,7 +86,7 @@ interface BulkSendResult {
 
 interface BulkSendAggregation {
   _id: string;
-  type: string;
+  type: NotificationType;
   title: string;
   message: string;
   image: string | null;
@@ -129,7 +145,7 @@ class NotificationService {
         metadata,
       });
 
-      return notification;
+      return notification as unknown as NotificationDocument;
     } catch (error) {
       console.error("❌ Failed to create notification:", error);
       throw error;

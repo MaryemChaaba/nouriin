@@ -3,7 +3,13 @@ import jwt, { type SignOptions } from "jsonwebtoken";
 import type { JwtPayload } from "../types/index.js";
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
-import UserRole from "../models/userRoleModel.js";
+import type {
+  UserRoleI,
+  EmployeeRole,
+  AuthProvider
+} from "../models/userModel.js";
+import UserRole  from "../models/userRoleModel.js";
+
 import generateToken from "../utils/generateToken.js";
 import crypto from "crypto";
 import { 
@@ -18,19 +24,28 @@ interface LoginBody {
   password?: string;
 }
 
+
 interface RegisterBody {
   name: string;
   email: string;
   password?: string;
-  role?: string;
-  employee_role?: string;
+  role?: UserRoleI;
+  employee_role?: EmployeeRole;
+}
+
+interface RegisterBody {
+  name: string;
+  email: string;
+  password?: string;
+  role?: UserRoleI;
+  employee_role?: EmployeeRole;
 }
 
 interface OAuthBody {
   name: string;
   email: string;
   avatar?: string;
-  authProvider: string;
+  authProvider: AuthProvider;
   authUid: string;
   isOAuthUser?: boolean;
 }

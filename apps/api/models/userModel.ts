@@ -2,14 +2,21 @@ import mongoose, { Schema, type Document, type Model, type Types } from "mongoos
 import bcrypt from "bcryptjs";
 
 // Interfaces
-export type UserRole = "admin" | "user" | "employee" | "seller";
-export type EmployeeRole =
-  | "packer"
-  | "deliveryman"
-  | "accounts"
-  | "incharge"
-  | "call_center";
-export type AuthProvider = "local" | "google" | "github";
+export const USER_ROLES = ["admin", "user", "employee", "seller"] as const;
+export type UserRoleI = (typeof USER_ROLES)[number];
+
+export const EMPLOYEE_ROLES = [
+  "packer",
+  "deliveryman",
+  "accounts",
+  "incharge",
+  "call_center",
+] as const;
+
+export type EmployeeRole = (typeof EMPLOYEE_ROLES)[number];
+
+export const AUTH_PROVIDERS = ["local", "google", "github"] as const;
+export type AuthProvider = (typeof AUTH_PROVIDERS)[number];
 
 export interface IAddress {
   _id?: Types.ObjectId;
@@ -33,7 +40,7 @@ export interface IUser extends Document {
   password?: string;
   dev_password?: string;
   avatar: string;
-  role: UserRole;
+  role: UserRoleI;
   employee_role: EmployeeRole | null;
   isOAuthUser: boolean;
   authProvider: AuthProvider;
@@ -82,11 +89,12 @@ const userSchema = new Schema<IUser>(
     },
     role: {
       type: String,
+      enum: USER_ROLES,
       default: "user",
     },
     employee_role: {
       type: String,
-      enum: ["packer", "deliveryman", "accounts", "incharge", "call_center"],
+       enum: EMPLOYEE_ROLES,
       default: null,
       validate: {
         validator: function (this: any, value: EmployeeRole | null) {
@@ -108,7 +116,7 @@ const userSchema = new Schema<IUser>(
     },
     authProvider: {
       type: String,
-      enum: ["local", "google", "github"],
+      enum: AUTH_PROVIDERS,
       default: "local",
     },
     authUid: {

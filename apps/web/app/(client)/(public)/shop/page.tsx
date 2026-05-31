@@ -24,7 +24,7 @@ const ShopPageServer = async () => {
     const data = await fetchData<CategoriesResponse>(
       "/categories/admin?page=1&perPage=1000&sortOrder=asc",
     );
-
+0ù0
     categories = data.categories;
   } catch (err) {
     error = err instanceof Error ? err.message : "An unknown error occurred";

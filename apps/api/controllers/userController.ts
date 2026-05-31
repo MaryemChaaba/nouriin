@@ -42,6 +42,9 @@ interface UpdateUserBody {
   oldPassword?: string;
 }
 
+type UserRole = "admin" | "user" | "employee" | "seller";
+type EmployeeRole = "packer" | "deliveryman" | "accounts" | "incharge" | "call_center" | null;
+
 interface AddressBody {
   street: string;
   city: string;
@@ -203,13 +206,15 @@ const createUser: RequestHandler = asyncHandler(async (req: RequestWithBody<Crea
     res.status(400);
     throw new Error("User already exists");
   }
+  const typedRole = role as UserRole;
+const typedEmployeeRole = employee_role as EmployeeRole;
 
   const user = await User.create({
     name,
     email,
     password,
-    role,
-    employee_role: role === "employee" ? employee_role : null,
+   role: typedRole,
+  employee_role: typedRole === "employee" ? typedEmployeeRole : null,
     addresses: addresses || [],
   });
 

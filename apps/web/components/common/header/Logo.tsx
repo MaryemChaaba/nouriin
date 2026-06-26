@@ -20,7 +20,7 @@ function Logo({
         Maryem
         <span
           className={cn(
-            "text-red-600 group-hover:text-green-950 hoverEffect",
+            "text-red-600 group-hover:text-white hoverEffect",
             spanDesign,
           )}
         >

@@ -13,11 +13,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("http://entry.reactbd.com"),
   title: {
     default:
-      "Entry Ecommerce Platform - Your All-in-One Online Shopping Destination",
-    template: "%s | Entry Ecommerce",
+      "Maryem Ecommerce Platform - Your All-in-One Online Shopping Destination",
+    template: "%s | Maryem Ecommerce",
   },
   description:
-    "Shop amazing products at Entry Ecommerce Platform. Trusted brands, safe products, fast delivery. Your one-stop shop for all needs.",
+    "Shop amazing products at Maryem Ecommerce Platform. Trusted brands, safe products, fast delivery. Your one-stop shop for all needs.",
   keywords: [
     "baby products",
     "baby essentials",
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
     "shopping online",
     "best deals",
   ],
-  authors: [{ name: "Entry Team" }],
-  creator: "Entry Ecommerce",
-  publisher: "Entry Ecommerce",
+  authors: [{ name: "Maryem Team" }],
+  creator: "Maryem Ecommerce",
+  publisher: "Maryem Ecommerce",
   formatDetection: {
     email: false,
     address: false,
@@ -44,9 +44,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "http://entry.reactbd.com",
-    siteName: "Entry Ecommerce Platform",
+    siteName: "Maryem Ecommerce Platform",
     title:
-      "Entry Ecommerce Platform - Your All-in-One Online Shopping Destination",
+      "Maryem Ecommerce Platform - Your All-in-One Online Shopping Destination",
     description:
       "Shop top quality products, electronics, clothing, & more. Trusted brands, safe products, fast delivery.",
     images: [
@@ -54,14 +54,14 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Entry Ecommerce - Your trusted store",
+        alt: "Maryem Ecommerce - Your trusted store",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title:
-      "Entry Ecommerce Platform - Your All-in-One Online Shopping Destination",
+      "Maryem Ecommerce Platform - Your All-in-One Online Shopping Destination",
     description:
       "Shop top quality products with trusted brands and fast delivery.",
     images: ["/og-image.jpg"],

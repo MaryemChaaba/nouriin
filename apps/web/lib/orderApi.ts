@@ -106,7 +106,7 @@ export interface CreateOrderResponse {
 
 // Create order from cart
 export const createOrderFromCart = async (
-  token: string,
+  
   cartItems: any[],
   shippingAddress: ShippingAddress
 ): Promise<CreateOrderResponse> => {
@@ -129,9 +129,7 @@ export const createOrderFromCart = async (
       shippingAddress,
     };
 
-    const response = await authApi.post("/orders", payload, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await authApi.post("/orders", payload);
 
     if (!response.success) {
       throw new Error(response.error?.message || "Failed to create order");
@@ -158,9 +156,7 @@ export const createOrderFromCart = async (
 // Get user orders
 export const getUserOrders = async (token: string): Promise<Order[]> => {
   try {
-    const response = await authApi.get("/orders", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await authApi.get("/orders");
 
     if (!response.success) {
       throw new Error("Failed to fetch orders");

@@ -34,6 +34,7 @@ import { toast } from "sonner";
 import { processDirectCheckout } from "@/lib/checkoutDirect";
 import { Checkbox } from "@/components/ui/checkbox";
 import { getProductUrl } from "@/lib/productHelpers";
+import RegisterForm from "./forms/register-form";
 
 const CartPageClient = () => {
   const {
@@ -143,16 +144,6 @@ const CartPageClient = () => {
     });
   };
 
-  const handleToggleAll = () => {
-    if (selectedItems.size === cartItemsWithQuantities.length) {
-      setSelectedItems(new Set());
-    } else {
-      setSelectedItems(
-        new Set(cartItemsWithQuantities.map((item) => item.product._id)),
-      );
-    }
-  };
-
   const calculateTotal = () => {
     return getTotalPrice();
   };
@@ -215,22 +206,17 @@ const CartPageClient = () => {
 
       const userProfile = useUserStore.getState().authUser;
 
-      await processDirectCheckout(
-        userProfile,
-        auth_token,
-        cartItemsWithQuantities,
-        {
-          onStart: () => setIsCheckingOut(true),
-          onSuccess: () => {
-            toast.success("Redirecting to secure gateway...");
-            setIsCheckingOut(false);
-          },
-          onError: (message) => {
-            toast.error(message);
-            setIsCheckingOut(false);
-          },
+      await processDirectCheckout(cartItemsWithQuantities, {
+        onStart: () => setIsCheckingOut(true),
+        onSuccess: () => {
+          toast.success("Redirecting to secure gateway...");
+          setIsCheckingOut(false);
         },
-      );
+        onError: (message) => {
+          toast.error(message);
+          setIsCheckingOut(false);
+        },
+      });
     } catch (error) {
       console.error("Error creating direct checkout:", error);
       toast.error("Failed to process checkout. Please try again.");
@@ -453,13 +439,13 @@ const CartPageClient = () => {
         <h1 className="text-4xl font-bold text-gray-900 mb-2">Cart</h1>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 lg:gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8">
         {/* Cart Items Section */}
-        <div className="xl:col-span-3">
+        <div className="lg:col-span-3">
           <div className="bg-background rounded-2xl border border-gray-100 shadow-sm p-6">
             {/* Cart Table Header - Only visible on larger screens */}
-            <div className="hidden lg:grid grid-cols-12 gap-4 py-4 border-b border-gray-200 mb-6">
-              <div className="col-span-1 flex items-center justify-center">
+            <div className="hidden lg:grid lg:grid-cols-12 gap-4 py-4 border-b border-gray-200 mb-6">
+              {/* <div className="col-span-1 flex items-center justify-center">
                 <Checkbox
                   checked={
                     selectedItems.size === cartItemsWithQuantities.length &&
@@ -468,7 +454,7 @@ const CartPageClient = () => {
                   onCheckedChange={handleToggleAll}
                   className="h-5 w-5"
                 />
-              </div>
+              </div> */}
               <div className="col-span-5 text-sm font-medium text-gray-900 uppercase tracking-wide">
                 Product
               </div>
@@ -494,7 +480,7 @@ const CartPageClient = () => {
                   <div className="block lg:hidden">
                     <div className="flex items-start gap-4">
                       {/* Checkbox */}
-                      <div className="pt-1">
+                      {/* <div className="pt-1">
                         <Checkbox
                           checked={selectedItems.has(cartItem.product._id)}
                           onCheckedChange={() =>
@@ -502,7 +488,7 @@ const CartPageClient = () => {
                           }
                           className="h-5 w-5"
                         />
-                      </div>
+                      </div> */}
                       {/* Product Image */}
                       <Link href={"getProductUrl(cartItem.product)"}>
                         <div className="relative w-20 h-20 bg-gray-100 rounded-lg overflow-hidden shrink-0 hover:scale-105 transition-transform duration-200 cursor-pointer">
@@ -604,7 +590,7 @@ const CartPageClient = () => {
                   {/* Desktop Layout */}
                   <div className="hidden lg:grid lg:grid-cols-12 gap-4 items-center py-6 border-b border-gray-100">
                     {/* Checkbox */}
-                    <div className="lg:col-span-1 flex items-center justify-center">
+                    {/* <div className="lg:col-span-1 flex items-center justify-center">
                       <Checkbox
                         checked={selectedItems.has(cartItem.product._id)}
                         onCheckedChange={() =>
@@ -612,7 +598,7 @@ const CartPageClient = () => {
                         }
                         className="h-5 w-5"
                       />
-                    </div>
+                    </div> */}
                     {/* Product Info */}
                     <div className="lg:col-span-5 flex items-center gap-4">
                       <Link href={"getProductUrl(cartItem.product)"}>
@@ -666,7 +652,7 @@ const CartPageClient = () => {
                     </div>
 
                     {/* Quantity */}
-                    <div className="lg:col-span-2 flex justify-center">
+                    <div className="lg:col-span-3 flex justify-center">
                       <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
                         <Button
                           variant="ghost"
@@ -745,14 +731,19 @@ const CartPageClient = () => {
         </div>
 
         {/* Cart Totals */}
-        <div className="xl:col-span-1">
+        <div className="lg:col-span-2">
           <div className="bg-background rounded-2xl p-6 sticky top-30 border border-gray-100 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-6">
-              Cart totals
-            </h2>
+            <div className="flex justify-between items-center py-2">
+              <span className="text-lg font-bold text-gray-900">Total</span>
+              <PriceFormatter
+                amount={calculateTotal()}
+                className="text-xl font-bold text-gray-900"
+              />
+            </div>
+            <Separator className="mb-6" />
 
-            <div className="space-y-4">
-              <div className="flex justify-between items-center py-2">
+            <div className="space-y-4 p-2">
+              {/* <div className="flex justify-between items-center py-2">
                 <span className="text-gray-600">Subtotal</span>
                 <PriceFormatter
                   amount={calculateSubtotal()}
@@ -777,9 +768,9 @@ const CartPageClient = () => {
                     />
                   )}
                 </span>
-              </div>
+              </div> */}
 
-              <div className="flex justify-between items-center py-2">
+              {/* <div className="flex justify-between items-center py-2">
                 <span className="text-gray-600">Tax</span>
                 <PriceFormatter
                   amount={
@@ -799,17 +790,10 @@ const CartPageClient = () => {
                     🎉 You qualify for free shipping!
                   </p>
                 </div>
-              )}
+              )} */}
+              <RegisterForm />
 
               <Separator className="my-4" />
-
-              <div className="flex justify-between items-center py-2">
-                <span className="text-lg font-bold text-gray-900">Total</span>
-                <PriceFormatter
-                  amount={calculateTotal()}
-                  className="text-xl font-bold text-gray-900"
-                />
-              </div>
             </div>
 
             {selectedItems.size > 0 &&
@@ -821,30 +805,6 @@ const CartPageClient = () => {
                   </p>
                 </div>
               )}
-
-            <Button
-              size="lg"
-              onClick={handleCheckout}
-              disabled={isCheckingOut || selectedItems.size === 0}
-              className="w-full mt-6 bg-black hover:bg-gray-800 text-white rounded-full py-3 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isCheckingOut ? (
-                <>
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                  Creating Order...
-                </>
-              ) : selectedItems.size === 0 ? (
-                "Select items to checkout"
-              ) : (
-                `Proceed to checkout (${selectedItems.size} ${selectedItems.size === 1 ? "item" : "items"})`
-              )}
-            </Button>
-
-            <div className="mt-4 text-center">
-              <p className="text-xs text-gray-500">
-                Secure checkout • SSL encrypted
-              </p>
-            </div>
           </div>
         </div>
       </div>

@@ -222,7 +222,7 @@ export default function OrdersPage() {
 
   // Call center tab state
   const [callCenterTab, setCallCenterTab] = useState<"pending" | "confirmed">(
-    "pending"
+    "pending",
   );
 
   // Deliveryman tab state
@@ -276,7 +276,7 @@ export default function OrdersPage() {
   // Get role-specific order statuses
   const roleStatuses = getOrderStatusForRole(
     user?.role || "",
-    user?.employee_role || null
+    user?.employee_role || null,
   );
 
   // Helper function to check if call center can edit order items and amount
@@ -406,7 +406,7 @@ export default function OrdersPage() {
 
       // Validate the response data
       const ordersData = response.data.orders || [];
-
+      console.log(ordersData);
       // Filter out any invalid orders and transform items for frontend compatibility
       const validOrders = ordersData
         .filter((order: Order) => {
@@ -457,8 +457,8 @@ export default function OrdersPage() {
       if (isAccounts && accountsTab === "orders") {
         filteredOrders = validOrders.filter((order: Order) =>
           ["delivering", "delivered", "completed", "cancelled"].includes(
-            order.status
-          )
+            order.status,
+          ),
         );
       }
 
@@ -587,7 +587,7 @@ export default function OrdersPage() {
 
     try {
       const response = await axiosPrivate.get(
-        "/cash-collections/my-collections"
+        "/cash-collections/my-collections",
       );
       setCollections(response.data.data.collections || []);
     } catch (error) {
@@ -608,7 +608,7 @@ export default function OrdersPage() {
 
     try {
       const response = await axiosPrivate.get(
-        "/cash-collections/accounts-employees"
+        "/cash-collections/accounts-employees",
       );
       setAccountsEmployees(response.data.data || []);
     } catch (error) {
@@ -629,7 +629,7 @@ export default function OrdersPage() {
 
     try {
       const response = await axiosPrivate.get(
-        "/users/roles/employees/by-role/deliveryman"
+        "/users/roles/employees/by-role/deliveryman",
       );
       setDeliveryEmployees(response.data.data || []);
     } catch (error) {
@@ -655,7 +655,7 @@ export default function OrdersPage() {
 
     try {
       const response = await axiosPrivate.get(
-        "/cash-collections/accounts/pending"
+        "/cash-collections/accounts/pending",
       );
       setPendingSubmissions(response.data.data.submissions || []);
     } catch (error) {
@@ -681,7 +681,7 @@ export default function OrdersPage() {
 
     try {
       const response = await axiosPrivate.get(
-        "/cash-collections/accounts/received"
+        "/cash-collections/accounts/received",
       );
       setReceivedSubmissions(response.data.data || []);
     } catch (error) {
@@ -707,7 +707,7 @@ export default function OrdersPage() {
 
     try {
       const response = await axiosPrivate.get(
-        "/cash-collections/accounts/stats"
+        "/cash-collections/accounts/stats",
       );
       setAccountsStats(response.data.data);
     } catch (error) {
@@ -840,8 +840,8 @@ export default function OrdersPage() {
       // Delete orders in parallel
       await Promise.all(
         selectedOrders.map((orderId) =>
-          axiosPrivate.delete(`/orders/${orderId}`)
-        )
+          axiosPrivate.delete(`/orders/${orderId}`),
+        ),
       );
 
       toast({
@@ -873,7 +873,7 @@ export default function OrdersPage() {
       order.user &&
       order.user._id &&
       order.items &&
-      Array.isArray(order.items)
+      Array.isArray(order.items),
   );
 
   const getStatusColor = (status: string) => {
@@ -952,7 +952,7 @@ export default function OrdersPage() {
         // Use the workflow endpoint for call center confirming order
         // This will set status_updates.order_confirmed
         await axiosPrivate.put(
-          `/orders/workflow/${updatedOrder._id}/confirm-order`
+          `/orders/workflow/${updatedOrder._id}/confirm-order`,
         );
       } else if (isPackingOrder) {
         // Use the workflow endpoint for packer marking order as packed
@@ -1054,7 +1054,7 @@ export default function OrdersPage() {
         {
           shippingAddress: selectedOrder.shippingAddress,
           notes: "Address verified and confirmed by call center",
-        }
+        },
       );
 
       // Update local state with the confirmed order
@@ -1072,8 +1072,8 @@ export default function OrdersPage() {
         prevOrders.map((order) =>
           order._id === selectedOrder._id
             ? { ...order, status: "address_confirmed" as Order["status"] }
-            : order
-        )
+            : order,
+        ),
       );
 
       toast({
@@ -1109,7 +1109,7 @@ export default function OrdersPage() {
     try {
       // Use the products route instead of orders/search-products
       const response = await axiosPrivate.get(
-        `/products?search=${encodeURIComponent(query)}&limit=10`
+        `/products?search=${encodeURIComponent(query)}&limit=10`,
       );
 
       // Transform the products data to match our Product interface
@@ -1421,7 +1421,7 @@ export default function OrdersPage() {
             value={deliverymanTab}
             onValueChange={(value) =>
               setDeliverymanTab(
-                value as "pending" | "delivering" | "delivered" | "collections"
+                value as "pending" | "delivering" | "delivered" | "collections",
               )
             }
             className="w-full"
@@ -1617,7 +1617,7 @@ export default function OrdersPage() {
                               .filter(
                                 (c) =>
                                   c.status === "collected" &&
-                                  selectedCollections.includes(c._id)
+                                  selectedCollections.includes(c._id),
                               )
                               .map((c) => c._id);
 
@@ -1637,7 +1637,7 @@ export default function OrdersPage() {
                                 {
                                   collectionIds: collectedIds,
                                   accountsUserId: selectedAccountsUser,
-                                }
+                                },
                               );
 
                               toast({
@@ -1689,7 +1689,7 @@ export default function OrdersPage() {
                               {collection.status === "collected" && (
                                 <Checkbox
                                   checked={selectedCollections.includes(
-                                    collection._id
+                                    collection._id,
                                   )}
                                   onCheckedChange={(checked) => {
                                     if (checked) {
@@ -1700,8 +1700,8 @@ export default function OrdersPage() {
                                     } else {
                                       setSelectedCollections(
                                         selectedCollections.filter(
-                                          (id) => id !== collection._id
-                                        )
+                                          (id) => id !== collection._id,
+                                        ),
                                       );
                                     }
                                   }}
@@ -1726,7 +1726,7 @@ export default function OrdersPage() {
                             <p className="text-sm text-gray-600">
                               Collected:{" "}
                               {new Date(
-                                collection.collectedAt
+                                collection.collectedAt,
                               ).toLocaleDateString()}
                             </p>
                             {collection.submittedToAccounts && (
@@ -1735,7 +1735,7 @@ export default function OrdersPage() {
                                 {collection.submittedToAccounts.name} on{" "}
                                 {collection.submittedAt &&
                                   new Date(
-                                    collection.submittedAt
+                                    collection.submittedAt,
                                   ).toLocaleDateString()}
                               </p>
                             )}
@@ -1745,7 +1745,7 @@ export default function OrdersPage() {
                                 {collection.confirmedByAccounts.name} on{" "}
                                 {collection.confirmedAt &&
                                   new Date(
-                                    collection.confirmedAt
+                                    collection.confirmedAt,
                                   ).toLocaleDateString()}
                               </p>
                             )}
@@ -1957,7 +1957,7 @@ export default function OrdersPage() {
                           {pendingSubmissions.length} submission(s) from{" "}
                           {
                             new Set(
-                              pendingSubmissions.map((s) => s.collectedBy._id)
+                              pendingSubmissions.map((s) => s.collectedBy._id),
                             ).size
                           }{" "}
                           deliveryman/men
@@ -1980,7 +1980,7 @@ export default function OrdersPage() {
                               "/cash-collections/accounts/confirm",
                               {
                                 collectionIds: selectedSubmissions,
-                              }
+                              },
                             );
 
                             toast({
@@ -2016,7 +2016,7 @@ export default function OrdersPage() {
                         <div className="flex items-start gap-3">
                           <Checkbox
                             checked={selectedSubmissions.includes(
-                              submission._id
+                              submission._id,
                             )}
                             onCheckedChange={(checked) => {
                               if (checked) {
@@ -2027,8 +2027,8 @@ export default function OrdersPage() {
                               } else {
                                 setSelectedSubmissions(
                                   selectedSubmissions.filter(
-                                    (id) => id !== submission._id
-                                  )
+                                    (id) => id !== submission._id,
+                                  ),
                                 );
                               }
                             }}
@@ -2044,14 +2044,14 @@ export default function OrdersPage() {
                                 <p className="text-sm text-gray-600">
                                   From: {submission.collectedBy?.name} on{" "}
                                   {new Date(
-                                    submission.collectedAt
+                                    submission.collectedAt,
                                   ).toLocaleDateString()}
                                 </p>
                                 <p className="text-sm text-gray-600">
                                   Submitted:{" "}
                                   {submission.submittedAt &&
                                     new Date(
-                                      submission.submittedAt
+                                      submission.submittedAt,
                                     ).toLocaleDateString()}
                                 </p>
                               </div>
@@ -2107,14 +2107,14 @@ export default function OrdersPage() {
                           <p className="text-sm text-gray-600 mt-1">
                             Collected by: {submission.collectedBy?.name} on{" "}
                             {new Date(
-                              submission.collectedAt
+                              submission.collectedAt,
                             ).toLocaleDateString()}
                           </p>
                           <p className="text-sm text-gray-600">
                             Confirmed:{" "}
                             {submission.confirmedAt &&
                               new Date(
-                                submission.confirmedAt
+                                submission.confirmedAt,
                               ).toLocaleDateString()}
                           </p>
                           <span className="inline-block mt-2 text-xs px-2 py-1 rounded-full bg-green-200 text-green-800">
@@ -2367,13 +2367,13 @@ export default function OrdersPage() {
                               <Badge
                                 className={cn(
                                   "capitalize",
-                                  getStatusColor(order.status)
+                                  getStatusColor(order.status),
                                 )}
                               >
                                 {getStatusLabel(order.status)}
                               </Badge>
                               {roleStatuses.highlightStatuses.includes(
-                                order.status
+                                order.status,
                               ) && (
                                 <div title="Action required">
                                   <AlertCircle className="h-4 w-4 text-orange-500 animate-pulse" />
@@ -2385,7 +2385,7 @@ export default function OrdersPage() {
                             <Badge
                               className={cn(
                                 "capitalize",
-                                getPaymentStatusColor(order.paymentStatus)
+                                getPaymentStatusColor(order.paymentStatus),
                               )}
                             >
                               {order.paymentStatus}
@@ -2413,13 +2413,13 @@ export default function OrdersPage() {
                                 onClick={() => {
                                   setSelectedOrder(order);
                                   setOriginalOrder(
-                                    JSON.parse(JSON.stringify(order))
+                                    JSON.parse(JSON.stringify(order)),
                                   ); // Deep clone original order
                                   setOriginalOrderStatus(order.status); // Store original status
                                   setPackedItems(
                                     new Array(order.items?.length || 0).fill(
-                                      false
-                                    )
+                                      false,
+                                    ),
                                   ); // Initialize packed items
                                   setIsAddressConfirmed(
                                     order.status === "address_confirmed" ||
@@ -2427,7 +2427,7 @@ export default function OrdersPage() {
                                       order.status === "packed" ||
                                       order.status === "delivering" ||
                                       order.status === "delivered" ||
-                                      order.status === "completed"
+                                      order.status === "completed",
                                   );
                                   // Set assigned deliveryman if exists
                                   if (order.assignedDeliveryman) {
@@ -2590,11 +2590,11 @@ export default function OrdersPage() {
                             onClick={() => {
                               setSelectedOrder(order);
                               setOriginalOrder(
-                                JSON.parse(JSON.stringify(order))
+                                JSON.parse(JSON.stringify(order)),
                               ); // Deep clone original order
                               setOriginalOrderStatus(order.status); // Store original status
                               setPackedItems(
-                                new Array(order.items?.length || 0).fill(false)
+                                new Array(order.items?.length || 0).fill(false),
                               ); // Initialize packed items
                               setIsAddressConfirmed(
                                 order.status === "address_confirmed" ||
@@ -2602,7 +2602,7 @@ export default function OrdersPage() {
                                   order.status === "packed" ||
                                   order.status === "delivering" ||
                                   order.status === "delivered" ||
-                                  order.status === "completed"
+                                  order.status === "completed",
                               );
                               setIsEditOpen(true);
                             }}
@@ -2676,13 +2676,13 @@ export default function OrdersPage() {
                           <Badge
                             className={cn(
                               "capitalize",
-                              getStatusColor(order.status)
+                              getStatusColor(order.status),
                             )}
                           >
                             {getStatusLabel(order.status)}
                           </Badge>
                           {roleStatuses.highlightStatuses.includes(
-                            order.status
+                            order.status,
                           ) && (
                             <div title="Action required">
                               <AlertCircle className="h-4 w-4 text-orange-500 animate-pulse" />
@@ -2692,7 +2692,7 @@ export default function OrdersPage() {
                         <Badge
                           className={cn(
                             "capitalize",
-                            getPaymentStatusColor(order.paymentStatus)
+                            getPaymentStatusColor(order.paymentStatus),
                           )}
                         >
                           {order.paymentStatus}
@@ -2897,7 +2897,7 @@ export default function OrdersPage() {
                   <Badge
                     className={cn(
                       "capitalize",
-                      getStatusColor(selectedOrder.status)
+                      getStatusColor(selectedOrder.status),
                     )}
                   >
                     {getStatusLabel(selectedOrder.status)}
@@ -2913,7 +2913,7 @@ export default function OrdersPage() {
                   <Badge
                     className={cn(
                       "capitalize",
-                      getPaymentStatusColor(selectedOrder.paymentStatus)
+                      getPaymentStatusColor(selectedOrder.paymentStatus),
                     )}
                   >
                     {selectedOrder.paymentStatus}
@@ -3086,7 +3086,7 @@ export default function OrdersPage() {
                                   ? deliveryEmployees.find(
                                       (e) =>
                                         e._id ===
-                                        selectedOrder.assignedDeliveryman
+                                        selectedOrder.assignedDeliveryman,
                                     )?.name || "Unknown"
                                   : selectedOrder.assignedDeliveryman.name}{" "}
                                 (
@@ -3095,7 +3095,7 @@ export default function OrdersPage() {
                                   ? deliveryEmployees.find(
                                       (e) =>
                                         e._id ===
-                                        selectedOrder.assignedDeliveryman
+                                        selectedOrder.assignedDeliveryman,
                                     )?.email || "Unknown"
                                   : selectedOrder.assignedDeliveryman.email}
                                 )
@@ -3357,7 +3357,7 @@ export default function OrdersPage() {
                               onClick={async () => {
                                 try {
                                   await axiosPrivate.put(
-                                    `/orders/workflow/${selectedOrder._id}/collect-cod`
+                                    `/orders/workflow/${selectedOrder._id}/collect-cod`,
                                   );
                                   toast({
                                     title: "Success",
@@ -3712,7 +3712,7 @@ export default function OrdersPage() {
                               <div className="flex items-center gap-3">
                                 <img
                                   src={String(
-                                    product.image || "/placeholder-image.jpg"
+                                    product.image || "/placeholder-image.jpg",
                                   )}
                                   alt={String(product.name || "")}
                                   className="w-10 h-10 object-cover rounded"
@@ -3745,7 +3745,7 @@ export default function OrdersPage() {
                           user?.role === "employee" &&
                             user?.employee_role === "packer" &&
                             packedItems[index] &&
-                            "bg-green-50 border-green-300"
+                            "bg-green-50 border-green-300",
                         )}
                       >
                         <div className="flex items-center justify-between">
@@ -3774,7 +3774,7 @@ export default function OrdersPage() {
                                         ? "text-green-600 font-semibold"
                                         : "text-gray-600",
                                       originalOrderStatus === "packed" &&
-                                        "cursor-not-allowed opacity-60"
+                                        "cursor-not-allowed opacity-60",
                                     )}
                                   >
                                     {packedItems[index]
@@ -3828,7 +3828,7 @@ export default function OrdersPage() {
                               onChange={(e) =>
                                 updateItemQuantity(
                                   index,
-                                  parseInt(e.target.value) || 1
+                                  parseInt(e.target.value) || 1,
                                 )
                               }
                               className="mt-1"
@@ -3915,7 +3915,7 @@ export default function OrdersPage() {
                           <p className="font-medium">
                             $
                             {(item.product?.price || item.price || 0).toFixed(
-                              2
+                              2,
                             )}
                           </p>
                         </div>
@@ -4042,7 +4042,7 @@ export default function OrdersPage() {
                                   entry.status === "address_confirmed" &&
                                     "bg-teal-50 text-teal-700 border-teal-200",
                                   entry.status === "pending" &&
-                                    "bg-yellow-50 text-yellow-700 border-yellow-200"
+                                    "bg-yellow-50 text-yellow-700 border-yellow-200",
                                 )}
                               >
                                 {entry.status
@@ -4059,7 +4059,7 @@ export default function OrdersPage() {
                                   year: "numeric",
                                   hour: "2-digit",
                                   minute: "2-digit",
-                                }
+                                },
                               )}
                             </div>
                           </div>

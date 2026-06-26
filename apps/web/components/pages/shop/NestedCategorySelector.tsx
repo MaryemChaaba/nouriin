@@ -17,6 +17,7 @@ import { Check, ChevronDown, ChevronRight, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { fetchData } from "@/lib/api";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface Category {
   _id: string;
@@ -40,6 +41,7 @@ interface NestedCategorySelectorProps {
 export function NestedCategorySelector({
   categories,
   value,
+  onValueChange,
   disabled = false,
   placeholder = "Select category...",
 }: NestedCategorySelectorProps) {
@@ -107,29 +109,45 @@ export function NestedCategorySelector({
     const isLoading = loadingChildren.has(category._id);
     const hasChildren = (category.childrenCount || 0) > 0;
 
-    console.log("hasChildren: ", category);
     const children = childrenCache.get(category._id) || [];
     const isSelected = value === category._id;
 
     return (
       <div key={category._id}>
-        <CommandItem
+        <button
           value={category._id}
           onSelect={() => {
-            // onValueChange(category._id);
+            onValueChange(category._id);
             setOpen(false);
           }}
-          className={cn("cursor-pointer", isSelected && "bg-accent")}
+          className={cn(
+            "cursor-pointer",
+            isSelected && "bg-accent",
+            depth == 0 && "font-semibold",
+          )}
           style={{ paddingLeft: `${depth * 16 + 8}px` }}
         >
-          <div className="flex items-center gap-2 w-full">
+          <div className="flex items-center gap-1 w-full">
+            {/* <Check
+              className={cn(
+                "mr-2 h-4 w-4",
+                isSelected ? "opacity-100" : "opacity-0",
+              )}
+            /> */}
+            <Checkbox />
+            <span className="flex-1">{category.name}</span>
+            {hasChildren && (
+              <Badge variant="outline" className="text-xs">
+                {category.childrenCount}
+              </Badge>
+            )}
             {hasChildren && (
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   toggleExpand(category._id, hasChildren);
                 }}
-                className="hover:bg-gray-200 rounded p-0.5"
+                className="hover:bg-gray-200 rounded p-0.5 text-sm"
               >
                 {isLoading ? (
                   <Loader2 className="h-3 w-3 animate-spin" />
@@ -140,20 +158,8 @@ export function NestedCategorySelector({
                 )}
               </button>
             )}
-            <Check
-              className={cn(
-                "mr-2 h-4 w-4",
-                isSelected ? "opacity-100" : "opacity-0",
-              )}
-            />
-            <span className="flex-1">{category.name}</span>
-            {hasChildren && (
-              <Badge variant="outline" className="text-xs">
-                {category.childrenCount}
-              </Badge>
-            )}
           </div>
-        </CommandItem>
+        </button>
         {isExpanded && children.length > 0 && (
           <div>
             {children.map((child) => renderCategoryItem(child, depth + 1))}
@@ -164,32 +170,6 @@ export function NestedCategorySelector({
   };
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-full justify-between"
-          disabled={disabled}
-        >
-          {selectedCategory ? selectedCategory.name : placeholder}
-          <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-full p-0" align="start">
-        <Command>
-          <CommandInput placeholder="Search category..." />
-          <CommandList>
-            <CommandEmpty>No category found.</CommandEmpty>
-            <CommandGroup>
-              {parentCategories.map((category) =>
-                renderCategoryItem(category, 0),
-              )}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
+    <>{parentCategories.map((category) => renderCategoryItem(category, 0))}</>
   );
 }

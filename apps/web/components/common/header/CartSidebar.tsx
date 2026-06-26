@@ -87,23 +87,18 @@ export default function CartSidebar() {
 
     const userProfile = useUserStore.getState().authUser;
 
-    await processDirectCheckout(
-      userProfile,
-      auth_token,
-      cartItemsWithQuantities,
-      {
-        onStart: () => setIsCheckingOut(true),
-        onSuccess: () => {
-          toast.success("Redirecting to secure gateway...");
-          close();
-          setIsCheckingOut(false);
-        },
-        onError: (message) => {
-          toast.error(message);
-          setIsCheckingOut(false);
-        },
+    await processDirectCheckout(cartItemsWithQuantities, {
+      onStart: () => setIsCheckingOut(true),
+      onSuccess: () => {
+        toast.success("Redirecting to secure gateway...");
+        close();
+        setIsCheckingOut(false);
       },
-    );
+      onError: (message) => {
+        toast.error(message);
+        setIsCheckingOut(false);
+      },
+    });
   };
 
   // ── Progress bar toward free shipping ────────────────────────────────────
@@ -327,7 +322,7 @@ export default function CartSidebar() {
             </div>
 
             {/* Actions */}
-            <Button
+            {/* <Button
               className="w-full h-11 rounded-lg font-semibold mt-1"
               onClick={handleCheckout}
               disabled={isCheckingOut}
@@ -338,7 +333,7 @@ export default function CartSidebar() {
                 <ArrowRight className="size-4 mr-2" />
               )}
               Checkout
-            </Button>
+            </Button> */}
 
             <Link href="/user/cart" onClick={close}>
               <Button

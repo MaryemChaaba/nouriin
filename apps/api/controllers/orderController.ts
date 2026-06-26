@@ -260,6 +260,7 @@ export const createOrderFromCart: RequestHandler = asyncHandler(
         seller: item.seller,
       };
     });
+    console.log("validItems",validItems)
 
     // Calculate subtotal (items only)
     const subtotal = validItems.reduce((acc, item) => {
@@ -284,7 +285,7 @@ export const createOrderFromCart: RequestHandler = asyncHandler(
 
     // Create order with "pending" status (will be updated to "paid" after successful payment)
     const order = await Order.create({
-      userId: req.user._id,
+      userId: '507f1f77bcf86cd799439011',
       items: validItems,
       total,
       status: "pending",
@@ -299,8 +300,8 @@ export const createOrderFromCart: RequestHandler = asyncHandler(
           status: "pending",
           changed_at: new Date(),
           changed_by: {
-            id: req.user._id,
-            name: req.user.name || req.user.email,
+            id: "507f1f77bcf86cd799439011",
+            name: "maryem mimitaa",
           },
           notes: "Order created",
         },
@@ -308,31 +309,31 @@ export const createOrderFromCart: RequestHandler = asyncHandler(
     });
 
     // Create in-app notification for order placed
-    try {
-      await notificationService.notifyOrderPlaced(req.user._id, order);
-    } catch (notifError) {
-      console.error("❌ Failed to create notification:", notifError);
-      // Don't fail order creation if notification fails
-    }
+    // try {
+    //   await notificationService.notifyOrderPlaced(req.user._id, order);
+    // } catch (notifError) {
+    //   console.error("❌ Failed to create notification:", notifError);
+    //   // Don't fail order creation if notification fails
+    // }
 
     // Send order confirmation email
-    try {
-      const user = await User.findById(req.user._id);
-      const emailResult = await sendOrderConfirmationEmail({
-        userEmail: user.email,
-        userName: user.name || user.email,
-        order: {
-          _id: order._id.toString(),
-          items: validItems,
-          total: order.total,
-          status: order.status,
-          shippingAddress: order.shippingAddress,
-        },
-      });
-    } catch (emailError) {
-      console.error("❌ Failed to send order confirmation email:", emailError);
-      // Don't fail the order creation if email fails
-    }
+    // try {
+    //   const user = await User.findById(req.user._id);
+    //   const emailResult = await sendOrderConfirmationEmail({
+    //     userEmail: user.email,
+    //     userName: user.name || user.email,
+    //     order: {
+    //       _id: order._id.toString(),
+    //       items: validItems,
+    //       total: order.total,
+    //       status: order.status,
+    //       shippingAddress: order.shippingAddress,
+    //     },
+    //   });
+    // } catch (emailError) {
+    //   console.error("❌ Failed to send order confirmation email:", emailError);
+    //   // Don't fail the order creation if email fails
+    // }
 
     res.status(201).json({
       success: true,

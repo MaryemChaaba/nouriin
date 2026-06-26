@@ -6,17 +6,22 @@ import { Product } from "@entry/types";
 import WishlistButton from "@/components/common/products/WishlistButton";
 import ProductRating from "@/components/common/products/ProductRating";
 import { toast } from "sonner";
-import { useCartStore, useUserStore } from "@/lib/store";
+import { useCartStore, useStore, useUserStore } from "@/lib/store";
 import { useRouter } from "next/navigation";
+import PriceFormatter from "@/components/common/PriceFormatter";
 
 interface ProductActionsProps {
   product: Product;
+  discountedPrice: number;
 }
 
-const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
+const ProductActions: React.FC<ProductActionsProps> = ({
+  product,
+  discountedPrice,
+}) => {
   const [quantity, setQuantity] = useState(1);
   const [localLoading, setLocalLoading] = useState(false);
-  const { addToCart } = useCartStore(); // Remove isLoading from here
+  const { addItem: addToCart } = useStore(); // Remove isLoading from here
   const { isAuthenticated } = useUserStore();
   const router = useRouter();
 
@@ -29,11 +34,11 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   };
 
   const handleAddToCart = async () => {
-    if (!isAuthenticated) {
-      toast.error("Please sign in to add items to cart");
-      router.push("/auth/signin");
-      return;
-    }
+    // if (!isAuthenticated) {
+    //   toast.error("Please sign in to add items to cart");
+    //   router.push("/auth/signin");
+    //   return;
+    // }
 
     setLocalLoading(true);
     try {
@@ -54,12 +59,12 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       {/* Product Rating and Title */}
       <div className="flex flex-col gap-3">
         {/* Rating Stars */}
-        <ProductRating
+        {/* <ProductRating
           rating={product?.averageRating || product?.rating || 0}
           numReviews={product?.numReviews}
           starSize={16}
           textClassName="text-sm"
-        />
+        /> */}
 
         {/* Product name with wishlist button */}
         <div className="flex items-start justify-between gap-5">
@@ -67,10 +72,10 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
             {product?.name}
           </h1>
           <div className="flex items-center gap-2 mt-1 shrink-0">
-            <WishlistButton
+            {/* <WishlistButton
               product={product}
               className="border border-border/50 hover:border-primary shadow-sm"
-            />
+            /> */}
           </div>
         </div>
       </div>

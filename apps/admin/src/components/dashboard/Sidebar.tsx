@@ -384,7 +384,7 @@ function renderNavItems(
       />
 
       {/* Account - Based on permissions */}
-      {canAccessMenuItem(
+      {/* {canAccessMenuItem(
         "/dashboard/account",
         user?.role || "",
         user?.employee_role,
@@ -395,10 +395,10 @@ function renderNavItems(
           label="Account"
           open={open}
         />
-      )}
+      )} */}
 
       {/* Users Group */}
-      {canAccessMenuItem(
+      {/* {canAccessMenuItem(
         "/dashboard/users",
         user?.role || "",
         user?.employee_role,
@@ -451,10 +451,10 @@ function renderNavItems(
             </>
           )}
         </>
-      )}
+      )} */}
 
       {/* Employees Group */}
-      {canAccessMenuItem(
+      {/* {canAccessMenuItem(
         "/dashboard/users",
         user?.role || "",
         user?.employee_role,
@@ -486,7 +486,7 @@ function renderNavItems(
             </>
           )}
         </>
-      )}
+      )} */}
 
       {/* Sales & Orders Group */}
       {(canAccessMenuItem(
@@ -636,7 +636,7 @@ function renderNavItems(
       )}
 
       {/* Seller Management Group */}
-      {canAccessMenuItem(
+      {/* {canAccessMenuItem(
         "/dashboard/sellers",
         user?.role || "",
         user?.employee_role,
@@ -687,10 +687,10 @@ function renderNavItems(
             </>
           )}
         </>
-      )}
+      )} */}
 
       {/* Purchase Management Group */}
-      {(canAccessMenuItem(
+      {/* {(canAccessMenuItem(
         "/dashboard/purchases/create",
         user?.role || "",
         user?.employee_role,
@@ -775,10 +775,10 @@ function renderNavItems(
             </>
           )}
         </>
-      )}
+      )} */}
 
       {/* Marketing & Content Group */}
-      {(canAccessMenuItem(
+      {/* {(canAccessMenuItem(
         "/dashboard/banners",
         user?.role || "",
         user?.employee_role,
@@ -881,10 +881,10 @@ function renderNavItems(
             </>
           )}
         </>
-      )}
+      )} */}
 
       {/* System Settings Group */}
-      {canAccessMenuItem(
+      {/* {canAccessMenuItem(
         "/dashboard/social-media",
         user?.role || "",
         user?.employee_role,
@@ -961,7 +961,7 @@ function renderNavItems(
             </>
           )}
         </>
-      )}
+      )} */}
     </>
   );
 }

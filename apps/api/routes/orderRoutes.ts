@@ -152,7 +152,7 @@ router.route("/search-products").get(protect, searchProductsForOrders);
  *       401:
  *         description: Unauthorized
  */
-router.route("/").get(protect, getOrders).post(protect, createOrderFromCart);
+router.route("/").get(protect, getOrders).post( createOrderFromCart);
 
 /**
  * @swagger

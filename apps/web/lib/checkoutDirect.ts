@@ -1,10 +1,10 @@
 import { createOrderFromCart } from "@/lib/orderApi";
 import { createCheckoutSession, redirectToCheckout, StripeCheckoutItem } from "@/lib/stripe";
 import { useCartStore } from "@/lib/store";
+import { CheckoutFormValues } from "./shema";
 
 export const processDirectCheckout = async (
-  authUser: any | null,
-  auth_token: string | null,
+  data:CheckoutFormValues,
   cartItemsWithQuantities: any[],
   callbacks: {
     onStart?: () => void;
@@ -17,7 +17,7 @@ export const processDirectCheckout = async (
   //   return;
   // }
 
-  if (!cartItemsWithQuantities || cartItemsWithQuantities.length === 0) {
+   if (!cartItemsWithQuantities || cartItemsWithQuantities.length === 0) {
     callbacks.onError?.("Your cart is empty.");
     return;
   }
@@ -25,44 +25,43 @@ export const processDirectCheckout = async (
   callbacks.onStart?.();
 
   try {
-    // // Resolve user address or use a dummy fallback since we are bypassing the checkout form
-    // let selectedAddress;
+    // Resolve user address or use a dummy fallback since we are bypassing the checkout form
+    let selectedAddress;
     // if (authUser.addresses && authUser.addresses.length > 0) {
     //   // Prefer default address, otherwise use the first one
     //   const defaultAddress = authUser.addresses.find((addr: any) => addr.isDefault);
     //   selectedAddress = defaultAddress || authUser.addresses[0];
     // } else {
     //   // Use fallback required fields for the backend if user has no address specified in profile yet
-    //   selectedAddress = {
-    //     street: "N/A",
-    //     city: "N/A",
-    //     state: "N/A",
-    //     country: "N/A",
-    //     postalCode: "00000",
-    //   };
+      selectedAddress = {
+        street: data.address,
+        city: data.city,
+        state: data.name,
+        country: data.phone,
+        postalCode: "00000",
+      };
     // }
 
-    // const orderItems = cartItemsWithQuantities.map((item) => ({
-    //   _id: item.product._id,
-    //   name: item.product.name,
-    //   price: item.product.price,
-    //   quantity: item.quantity,
-    //   image: item.product.images?.[0] || item.product.image,
-    // }));
+    const orderItems = cartItemsWithQuantities.map((item) => ({
+      _id: item.product._id,
+      name: item.product.name,
+      price: item.product.price,
+      quantity: item.quantity,
+      image: item.product.images?.[0] || item.product.image,
+    }));
 
     // 1. Create the pending order in the database
-    // const orderResponse = await createOrderFromCart(
-    //   auth_token,
-    //   orderItems,
-    //   selectedAddress
-    // );
+    const orderResponse = await createOrderFromCart(
+      orderItems,
+      selectedAddress
+    );
 
-    // if (!orderResponse.success || !orderResponse.order) {
-    //   console.error("❌ Order creation failed:", orderResponse);
-    //   throw new Error(orderResponse.message || "Failed to create order");
-    // }
+    if (!orderResponse.success || !orderResponse.order) {
+      console.error("❌ Order creation failed:", orderResponse);
+      throw new Error(orderResponse.message || "Failed to create order");
+    }
 
-    // const finalOrder = orderResponse.order;
+    const finalOrder = orderResponse.order;
 
     // // 2. Format items for Stripe
     // const stripeItems: StripeCheckoutItem[] = finalOrder.items.map((item: any) => ({
@@ -121,16 +120,15 @@ export const processDirectCheckout = async (
     //   },
     // });
 
-    // if ("url" in stripeResult && stripeResult.url) {
-    //   // 4. Redirect to Stripe
-    //   useCartStore.getState().clearCart(); // Clear the cart before redirect
-    //   callbacks.onSuccess?.();
-    //   await redirectToCheckout(stripeResult.url);
-    // } else if ("error" in stripeResult && stripeResult.error) {
-    //   throw new Error(stripeResult.error);
-    // } else {
-    //   throw new Error("Failed to get checkout session URL");
-    // }
+    if (finalOrder) {
+      // 4. Redirect to Stripe
+      useCartStore.getState().clearCart(); // Clear the cart before redirect
+      callbacks.onSuccess?.();
+      // await redirectToCheckout(stripeResult.url);
+    
+    } else {
+      throw new Error("Failed to get checkout session URL");
+    }
 
   } catch (error) {
     console.error("❌ Direct Checkout Error:", error);

@@ -37,6 +37,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 import { NestedCategorySelector } from "./NestedCategorySelector";
+import Sidebar from "./Sidebar";
 
 interface ProductsResponse {
   products: Product[];
@@ -628,6 +629,11 @@ const ShopPageClient = ({
                     value="dd"
                     placeholder="Select a category"
                   />
+                  {/* <Sidebar
+                    open={true}
+                    setOpen={() => false}
+                    categories={categories}
+                  /> */}
                   {/* ******** */}
                 </div>
                 {/* <div className="mb-4">

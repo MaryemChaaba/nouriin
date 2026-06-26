@@ -8,7 +8,7 @@ import ProductImageGallery from "@/components/pages/product/ProductImageGallery"
 import { fetchData } from "@/lib/api";
 import { isValidObjectId } from "@/lib/productHelpers";
 import { Product } from "@entry/types";
-import { Box, Truck } from "lucide-react";
+import { Box, FileQuestion, Truck } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { redirect } from "next/navigation";
@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 import ProductCard from "@/components/common/products/ProductCard";
+import PriceFormatter from "@/components/common/PriceFormatter";
 
 const ProductDetails = async ({
   params,
@@ -145,16 +146,68 @@ const ProductDetails = async ({
             {/* Product Details */}
             <div className="flex flex-col gap-6">
               {/* Product Actions (Name, Wishlist, Quantity, Add to Cart) */}
-              <ProductActions product={product} />
-
-              {/* Client-side Product Details Component */}
-              <ProductDetailsClient
+              <ProductActions
                 product={product}
                 discountedPrice={discountedPrice}
               />
+              {/* Price and Rating */}
+              <div className="flex items-start gap-5 justify-between border-y border-muted-foreground/30 py-5">
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-3">
+                    {product?.discountPercentage &&
+                    product.discountPercentage > 0 ? (
+                      <>
+                        <PriceFormatter
+                          amount={discountedPrice}
+                          className="text-primary text-3xl font-extrabold tracking-tight"
+                        />
+                        <PriceFormatter
+                          amount={product.price}
+                          className="text-muted-foreground line-through font-medium text-lg opacity-70"
+                        />
+                      </>
+                    ) : (
+                      <PriceFormatter
+                        amount={product?.price}
+                        className="text-foreground text-3xl font-extrabold tracking-tight"
+                      />
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div
+                      className={`w-2.5 h-2.5 rounded-full ${
+                        product?.stock !== undefined && product.stock > 0
+                          ? "bg-green-500"
+                          : "bg-red-500"
+                      }`}
+                    />
+                    <p className="text-sm font-medium text-muted-foreground">
+                      {product?.stock !== undefined && product.stock > 0
+                        ? `${product.stock} items in stock`
+                        : "Out of stock"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Client-side Product Details Component */}
+              <div className="bg-muted/30 rounded-xl p-5 border border-border/50">
+                <h3 className="text-sm font-semibold text-foreground mb-2 flex items-center gap-2">
+                  <FileQuestion size={16} className="text-primary" />
+                  About This Product
+                </h3>
+                <p className="text-sm text-foreground/80 leading-relaxed line-clamp-4">
+                  {product?.description ||
+                    "No description available for this product."}
+                </p>
+              </div>
+              {/* <ProductDetailsClient
+                product={product}
+                discountedPrice={discountedPrice}
+              /> */}
 
               {/* Delivery Information */}
-              <div className="space-y-3">
+              {/* <div className="space-y-3">
                 <div className="flex items-start gap-3 p-4 bg-muted rounded-lg">
                   <Truck className="text-primary mt-0.5" size={24} />
                   <div>
@@ -190,7 +243,7 @@ const ProductDetails = async ({
                     </p>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {/* Payment Badge */}
               {/* <div className="bg-muted flex flex-col items-center justify-center p-6 rounded-lg border border-muted-foreground/20">

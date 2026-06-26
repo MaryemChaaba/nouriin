@@ -13,7 +13,7 @@ function Logo({
     <Link href={"/"}>
       <h2
         className={cn(
-          "text-2xl text-green-950  font-black tracking-wide uppercase hover:text-red-600 hoverEffect group font-sans ",
+          "text-2xl text-white  font-black tracking-wide uppercase hover:text-red-600 hoverEffect group font-sans ",
           className,
         )}
       >

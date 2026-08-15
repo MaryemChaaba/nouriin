@@ -209,8 +209,9 @@ const CartPageClient = () => {
       await processDirectCheckout(cartItemsWithQuantities, {
         onStart: () => setIsCheckingOut(true),
         onSuccess: () => {
-          toast.success("Redirecting to secure gateway...");
+          toast.success("Order Created Successfully...");
           setIsCheckingOut(false);
+          router.push("/");
         },
         onError: (message) => {
           toast.error(message);

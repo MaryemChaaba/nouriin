@@ -63,6 +63,9 @@ const ShopPageClient = ({
   const [category, setCategory] = useState<string>(
     searchParams.get("category") || "",
   );
+  const [subcategory, setSubCategory] = useState<string>(
+    searchParams.get("subcategory") || "",
+  );
   const [brand, setBrand] = useState<string>(searchParams.get("brand") || "");
   const [search, setSearch] = useState<string>(
     searchParams.get("search") || "",
@@ -590,7 +593,8 @@ const ShopPageClient = ({
                       </Button>
                     )}
                   </div>
-                  {/* <Select
+                  {/* ************************ */}
+                  <Select
                     value={category || "All"}
                     onValueChange={(value) => {
                       const newCategory = value === "All" ? "" : value;
@@ -622,7 +626,7 @@ const ShopPageClient = ({
                         ))}
                       </SelectGroup>
                     </SelectContent>
-                  </Select> */}
+                  </Select>
                   {/* ********** */}
                   <NestedCategorySelector
                     categories={categories}

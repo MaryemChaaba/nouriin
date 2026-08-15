@@ -26,7 +26,7 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { processDirectCheckout } from "@/lib/checkoutDirect";
 
@@ -90,9 +90,10 @@ export default function CartSidebar() {
     await processDirectCheckout(cartItemsWithQuantities, {
       onStart: () => setIsCheckingOut(true),
       onSuccess: () => {
-        toast.success("Redirecting to secure gateway...");
+        toast.success("Order created successfully");
         close();
         setIsCheckingOut(false);
+        redirect("/");
       },
       onError: (message) => {
         toast.error(message);

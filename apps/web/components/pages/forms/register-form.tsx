@@ -31,6 +31,7 @@ import { processDirectCheckout } from "@/lib/checkoutDirect";
 import { toast } from "sonner";
 import { useStore } from "@/lib/store";
 import { useState } from "react";
+import { redirect } from "next/navigation";
 
 export default function CheckoutForm() {
   const [isCheckingOut, setIsCheckingOut] = useState(false);
@@ -65,7 +66,7 @@ export default function CheckoutForm() {
       await processDirectCheckout(data, cartItemsWithQuantities, {
         onStart: () => setIsCheckingOut(true),
         onSuccess: () => {
-          toast.success("Redirecting to secure gateway...");
+          toast.success("Order created successfully");
           setIsCheckingOut(false);
         },
         onError: (message) => {
@@ -73,6 +74,7 @@ export default function CheckoutForm() {
           setIsCheckingOut(false);
         },
       });
+      clearCart();
     } catch (error) {
       console.error("Error creating direct checkout:", error);
       toast.error("Failed to process checkout. Please try again.");

@@ -61,11 +61,11 @@ async function fetchBaseConfig() {
 export const metadata: Metadata = {
   metadataBase: new URL("http://entry.reactbd.com"),
   title: {
-    default: "Entry Ecommerce Platform - Shop Online",
-    template: "%s | Entry",
+    default: "Maryrm Ecommerce Platform - Shop Online",
+    template: "%s | Maryrm",
   },
   description:
-    "Entry Ecommerce Platform — discover thousands of products at great prices. Trusted sellers, fast delivery, and secure payments. Your all-in-one online shopping destination.",
+    "Maryrm Ecommerce Platform — discover thousands of products at great prices. Trusted sellers, fast delivery, and secure payments. Your all-in-one online shopping destination.",
   keywords: [
     "ecommerce",
     "online shopping",
@@ -75,9 +75,9 @@ export const metadata: Metadata = {
     "fast delivery",
     "secure payment",
   ],
-  authors: [{ name: "Entry Team" }],
-  creator: "Entry",
-  publisher: "Entry",
+  authors: [{ name: "Maryrm Team" }],
+  creator: "Maryrm",
+  publisher: "Maryrm",
   formatDetection: {
     email: false,
     address: false,
@@ -87,8 +87,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "http://entry.reactbd.com",
-    siteName: "Entry Ecommerce Platform",
-    title: "Entry Ecommerce Platform - Shop Online",
+    siteName: "Maryrm Ecommerce Platform",
+    title: "Maryrm Ecommerce Platform - Shop Online",
     description:
       "Discover thousands of products at great prices. Trusted sellers, fast delivery, and secure payments.",
     images: [
@@ -96,13 +96,13 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Entry Ecommerce Platform",
+        alt: "Maryrm Ecommerce Platform",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Entry Ecommerce Platform",
+    title: "Maryrm Ecommerce Platform",
     description:
       "Discover thousands of products at great prices with fast delivery.",
     images: ["/og-image.jpg"],

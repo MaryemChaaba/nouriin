@@ -8,9 +8,11 @@ import React, { useEffect, useRef, useState } from "react";
 const PremiumButton = ({
   childrenCat,
   name,
+  id,
 }: {
   childrenCat?: Category[];
   name: string;
+  id: string;
 }) => {
   const [isPremiumOpen, setIsPremiumOpen] = useState(false);
   const premiumRef = useRef<HTMLDivElement>(null);
@@ -37,7 +39,12 @@ const PremiumButton = ({
         onMouseEnter={() => setIsPremiumOpen(true)}
         onMouseLeave={() => setIsPremiumOpen(false)}
       >
-        <button
+        <Link
+          type="button"
+          href={{
+            pathname: "/shop",
+            query: { category: id },
+          }}
           className={cn(
             "flex items-center gap-1 text-sm lg:text-base font-semibold text-primary-foreground/90 hover:text-accent hoverEffect",
             isPremiumOpen && "text-accent",
@@ -50,7 +57,7 @@ const PremiumButton = ({
               isPremiumOpen && "rotate-180",
             )}
           />
-        </button>
+        </Link>
         {childrenCat && (
           <div
             className={cn(
@@ -64,7 +71,10 @@ const PremiumButton = ({
               {childrenCat?.map((cat) => (
                 <Link
                   key={cat._id}
-                  href="/seller"
+                  href={{
+                    pathname: "/shop",
+                    query: { subcategory: cat._id },
+                  }}
                   className="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg hover:bg-accent hover:text-white transition-colors text-foreground"
                 >
                   {cat.name}

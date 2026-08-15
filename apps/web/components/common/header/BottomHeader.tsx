@@ -103,9 +103,16 @@ const BottomHeader = ({ config, categories }: BottomHeaderProps) => {
                     []
                   }
                   name={item?.name}
+                  id={item?._id}
                 />
               ) : (
-                <Link href="item?.href" key={item?.name}>
+                <Link
+                  href={{
+                    pathname: "/shop",
+                    query: { category: item._id },
+                  }}
+                  key={item?.name}
+                >
                   <p
                     className={cn(
                       "text-sm lg:text-base font-semibold text-primary-foreground/90 hover:text-accent hoverEffect",

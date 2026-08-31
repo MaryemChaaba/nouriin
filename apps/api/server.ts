@@ -69,7 +69,8 @@ const allowedOrigins: (string | undefined)[] = [
   "http://10.0.2.2:8081",
   "http://10.0.2.2:8000",
   "https://nouriin-admin-ejk6.vercel.app",
-  "https://nouriin-web.vercel.app/"
+  "https://nouriin-web.vercel.app/",
+  "https://maryemhomeecommerce.netlify.app/
 ].filter(Boolean);
 
 app.use(

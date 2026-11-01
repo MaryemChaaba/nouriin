@@ -17,6 +17,9 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+   --color-noya-gray: var(--noya-gray);
+   --color-noya-vert: var(--noya-vert);
+   --color-noya-bg: var(--noya-bg);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -59,6 +62,11 @@
   /* entryDark (Navy) - Primary Brand */
   --primary: #1a1a2c;
   --primary-foreground: #ffffff;
+  --noya-gray: #1a1a2c;
+  --noya-vert: #3d5919;
+  --noya-bg:#3d5919
+
+
 
   /* entrydarkLight - Secondary */
   --secondary: #1f2329;
@@ -69,7 +77,7 @@
   --muted-foreground: #999999;
 
   /* entryRedDark - Accent/Sale */
-  --accent: #d52245;
+  --accent: #3d5919;
   --accent-foreground: #ffffff;
 
   --destructive: #d52245; /* Reusing red for destructive */

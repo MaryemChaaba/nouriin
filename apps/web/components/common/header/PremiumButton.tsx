@@ -46,7 +46,7 @@ const PremiumButton = ({
             query: { category: id },
           }}
           className={cn(
-            "flex items-center gap-1 text-sm lg:text-base font-semibold text-primary-foreground/90 hover:text-accent hoverEffect",
+            "flex items-center gap-1 text-sm lg:text-base font-semibold text-primar hover:text-accent hoverEffect",
             isPremiumOpen && "text-accent",
           )}
         >
@@ -75,7 +75,7 @@ const PremiumButton = ({
                     pathname: "/shop",
                     query: { subcategory: cat._id },
                   }}
-                  className="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg hover:bg-accent hover:text-white transition-colors text-foreground"
+                  className="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg hover:bg-accent hover:text-white transition-colors text-primary"
                 >
                   {cat.name}
                 </Link>

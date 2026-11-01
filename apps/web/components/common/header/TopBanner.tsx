@@ -9,7 +9,7 @@ import { Phone } from "lucide-react";
 
 const TopBanner = () => {
   return (
-    <div className="w-full bg-primary text-primary-foreground py-2 text-sm font-medium border-b border-b-border/20">
+    <div className="w-full bg-noya-vert text-primary-foreground py-2 text-sm font-medium border-b border-b-border/20">
       <Container className="flex items-center justify-between">
         <p className="text-center flex gap-1 justify-center items-center">
           <Phone className="w-5 h-5" /> <span>57 031 433</span>

@@ -9,7 +9,7 @@ import SellerBadge from "./SellerBadge";
 import UserButton from "./UserButton";
 import MobileUserIcon from "./MobileUserIcon";
 import CompareIcon from "./CompareIcon";
-import Logo from "./Logo";
+import Logo from "../Logo";
 
 interface StickyHeaderProps {
   logoUrl?: string | null;
@@ -41,7 +41,7 @@ const StickyHeader = ({ logoUrl, baseConfig }: StickyHeaderProps) => {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -100, opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="fixed top-0 left-0 right-0 z-50 bg-primary backdrop-blur-md border-b shadow-sm"
+          className="fixed top-0 left-0 right-0 z-50 bg-noya-bg backdrop-blur-md border-b shadow-sm"
         >
           <Container className="flex items-center justify-between gap-10 py-3">
             <div className="flex flex-1 items-center gap-5">

@@ -72,7 +72,7 @@ const BannerCarousel = ({ banners }: BannerCarouselProps) => {
                 className="absolute inset-0 w-full h-full"
               >
                 <Image
-                  src="/banner-3.jpg"
+                  src="/banner-3.png"
                   alt={banner.name}
                   fill
                   priority={index === 0}

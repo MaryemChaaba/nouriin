@@ -115,8 +115,8 @@ const BottomHeader = ({ config, categories }: BottomHeaderProps) => {
                 >
                   <p
                     className={cn(
-                      "text-sm lg:text-base font-semibold text-primary-foreground/90 hover:text-accent hoverEffect",
-                      pathname === item?.name && "text-accent",
+                      "text-sm lg:text-base font-semibold text-primary hover:text-accent hoverEffect",
+                      pathname === item?.name && "text-primary",
                     )}
                   >
                     {item?.name}

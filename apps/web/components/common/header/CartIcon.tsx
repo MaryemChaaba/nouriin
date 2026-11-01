@@ -26,10 +26,10 @@ const CartIcon = () => {
     <button
       onClick={open}
       aria-label="Open cart"
-      className="relative hover:text-accent hoverEffect"
+      className="relative hover:text-noya-vert hoverEffect"
     >
       <ShoppingBag />
-      <span className="absolute -right-2 -top-2 bg-accent text-white text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center">
+      <span className="absolute -right-2 -top-2 bg-noya-vert text-white text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center">
         {totalItems > 99 ? "99+" : totalItems}
       </span>
     </button>

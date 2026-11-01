@@ -72,20 +72,19 @@ const UserButton = () => {
       <div className="flex items-center gap-2 group">
         <User size={30} className="shrink-0" />
         <span className="flex flex-col">
-          <p className="text-xs font-medium">Welcome</p>
           <p className="font-semibold text-sm flex items-center gap-1">
             <button
               onClick={openLogin}
-              className="hover:text-accent hoverEffect"
+              className="hover:text-noya-vert hoverEffect"
             >
-              Sign In
+              Se connecter
             </button>
             <span className="opacity-50">/</span>
             <button
               onClick={openRegister}
-              className="hover:text-accent hoverEffect"
+              className="hover:text-noya-vert hoverEffect"
             >
-              Register
+              S'inscrire
             </button>
           </p>
         </span>

@@ -5,7 +5,7 @@ import Container from "../Container";
 import SearchInput from "./SearchInput";
 import UserButton from "./UserButton";
 import CartIcon from "./CartIcon";
-import Logo from "./Logo";
+import Logo from "../Logo";
 import SellerBadge from "./SellerBadge";
 import BottomHeader from "./BottomHeader";
 import StickyHeader from "./StickyHeader";
@@ -57,7 +57,7 @@ const Header = ({
   categories?: any[];
 }) => {
   return (
-    <header className="border-b top-0 z-50 bg-primary text-primary-foreground">
+    <header className="border-b top-0 z-50 bg-noya-bg text-primary">
       <TopBanner />
 
       <Container className="flex items-center justify-between py-4 lg:py-5">
